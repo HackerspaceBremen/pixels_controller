@@ -15,6 +15,8 @@ BTN_P2_UP =48
 BTN_P2_DOWN =44
 BTN_P2_LEFT =46
 BTN_P2_RIGHT =42
+BTN_PLAYER_A =50
+BTN_PLAYER_B =52
 
 
 def main():
@@ -32,6 +34,8 @@ def main():
         uinput.BTN_3,
         uinput.BTN_4,
         uinput.BTN_5,
+        uinput.BTN_6,
+        uinput.BTN_7,
         uinput.BTN_JOYSTICK,
     )
     
@@ -41,7 +45,15 @@ def main():
         _events = controller.get_events()
         for i in _events:
             if i[1] == 1:
-                if i[0] == BTN_P1_UP:
+                if i[0] == BTN_PLAYER_A:
+                    device.emit(uinput.BTN_6,1)
+                elif i[0] == BTN_PLAYER_B:
+                    device.emit(uinput.BTN_7,1)
+
+
+
+
+                elif i[0] == BTN_P1_UP:
                     device.emit(uinput.ABS_Y,-1)
                 elif i[0] == BTN_P1_DOWN:
                     device.emit(uinput.ABS_Y,1)
@@ -72,7 +84,20 @@ def main():
                     device.emit(uinput.BTN_4,1)
                 elif i[0] == BTN_P2_YELLOW:
                     device.emit(uinput.BTN_5,1)
+
+
+
+
             elif i[1] == 0:
+                if i[0] == BTN_PLAYER_A:
+                    device.emit(uinput.BTN_6,0)
+                elif i[0] == BTN_PLAYER_B:
+                    device.emit(uinput.BTN_7,0)
+
+
+
+
+
                 if i[0] == BTN_P1_UP:
                     device.emit(uinput.ABS_Y,0)
                 elif i[0] == BTN_P1_DOWN:
@@ -81,7 +106,6 @@ def main():
                     device.emit(uinput.ABS_X,0)
                 elif i[0] == BTN_P1_RIGHT:
                     device.emit(uinput.ABS_X,0)
-
                 elif i[0] == BTN_P1_BLUE:
                     device.emit(uinput.BTN_0,0)
                 elif i[0] == BTN_P1_RED:
