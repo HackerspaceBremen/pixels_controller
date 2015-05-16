@@ -20,7 +20,6 @@ BTN_P2_RIGHT =42
 def main():
     controller = GameController.GameController(SERIAL_PORT)
     events = (
-        uinput.BTN_JOYSTICK,
         #Player A
         uinput.ABS_X + (-1, 1, 0, 0),
         uinput.ABS_Y + (-1, 1, 0, 0),
@@ -33,6 +32,7 @@ def main():
         uinput.BTN_3,
         uinput.BTN_4,
         uinput.BTN_5,
+        uinput.BTN_JOYSTICK,
     )
     
     device = uinput.Device(events) 
