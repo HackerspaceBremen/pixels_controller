@@ -1,5 +1,4 @@
-import serial
-
+import serial, select
 BTN_P1_BLUE =34
 BTN_P1_RED =32
 BTN_P1_YELLOW =30
@@ -17,17 +16,18 @@ BTN_P2_RIGHT =42
 
 class GameController:
     def __init__(self, serialPort):
-	try:
-	    self._serial = serial.Serial(serialPort, 115200, timeout=0)
-	except Exception as e:
-	    # fallback
-	    print "Game controller error:" , e.message
-	    print "Game controller will not work"
-	    self._serial = None
+        try:
+            self._serial = serial.Serial(serialPort, 115200, timeout=0)
+        except Exception as e:
+            # fallback
+            print "Game controller error:" , e.message
+            print "Game controller will not work"
+            self._serial = None
     def get_events(self):
-	_events = []
-	if self._serial:
-	    _event = bytearray(1)
-	    while self._serial.readinto(_event) > 0:
-		_events.append((int(_event[0]) & 0xFE, int(_event[0]) & 0x01))
-	return _events
+        _events = []
+        if self._serial:
+            _event = bytearray(1)
+            while select.select(self._serial.fileno(),None,None) > 0:
+                self._serial.readinto(_event)
+               _events.append((int(_event[0]) & 0xFE, int(_event[0]) & 0x01))
+        return _events
