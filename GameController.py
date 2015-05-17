@@ -18,6 +18,7 @@ class GameController:
     def __init__(self, serialPort):
         try:
             self._serial = serial.Serial(serialPort, 115200, timeout=0)
+            self._serial.nonblocking()
         except Exception as e:
             # fallback
             print "Game controller error:" , e.message
