@@ -29,5 +29,5 @@ class GameController:
             _event = bytearray(1)
             while select.select(self._serial.fileno(),None,None) > 0:
                 self._serial.readinto(_event)
-               _events.append((int(_event[0]) & 0xFE, int(_event[0]) & 0x01))
+                _events.append((int(_event[0]) & 0xFE, int(_event[0]) & 0x01))
             return _events
